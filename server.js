@@ -55,6 +55,13 @@ app.post("/webhook/tvmaze", async (req, res) => {
     const data = await fetchTVMazeDataForTVShowName(showName);
     res.status(200).json({
       exchange_slug: "tvmazeresult",
+      image_carousel: [
+        {
+          imageUrl: data.image,
+          title: data.name,
+          altText: data.name,
+        },
+      ],
       new_context: {
         TVShowName: data.name,
         TVShowRating: data.rating,

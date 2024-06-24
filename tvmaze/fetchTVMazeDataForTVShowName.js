@@ -9,5 +9,6 @@ export default async (name) => {
     summary: data[0].show.summary,
     rating: data[0].show.rating.average,
     genre: data[0].show.genres[0],
+    image: data[0].show.image.original,
   };
 };
