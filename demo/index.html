@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kindly Demo</title>
+    <style>
+      body {
+        background-color: #f0f8ff;
+        font-family: "IBM Plex Sans";
+        text-align: center;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="./logo.png" alt="logo" />
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      let botKey = urlParams.get("botkey");
+      let name = urlParams.get("name");
+
+      if (!botKey) {
+        botKey = prompt("What bot key do you want to use", "");
+        if (botKey) {
+          window.location.search = `?botkey=${botKey}`;
+        } else {
+          alert("You need to provide a bot key to use the demo");
+          window.reload();
+        }
+      }
+      if (!name) {
+        name = prompt("What is your name", "");
+        if (name) {
+          window.location.search = `?botkey=${botKey}&name=${name}`;
+        } else {
+          alert("You need to provide a name to use the demo");
+          window.reload();
+        }
+      }
+
+      var script = document.createElement("script");
+      script.src = "https://chat.kindlycdn.com/kindly-chat.js";
+      script.id = "kindly-chat";
+      script.defer = true;
+      script.setAttribute("data-shadow-dom", "1");
+      script.setAttribute("data-bot-key", botKey);
+      document.body.appendChild(script);
+    </script>
+    <script>
+      window.kindlyOptions = {
+        getAuthToken: (chatId) => {
+          return fetch("/authenticate", {
+            method: "POST",
+            body: JSON.stringify({ chatId, name }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => response.json())
+            .then(({ token }) => token);
+        },
+      };
+    </script>
+  </body>
+</html>
