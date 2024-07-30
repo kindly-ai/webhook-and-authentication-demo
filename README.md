@@ -41,6 +41,8 @@ npm start
 
 ## Authentication
 
+To validate that the webhook requests are coming from Kindly, we use an HMAC verification algorithm. You need to replace the key inside the `access_control > keys > webhookSignature` file to your own (`Settings > General > Security > Webhook HMAC`)
+
 You can find a demo authentication flow in the `demo` folder. This flow is a simple example of how you can authenticate a user and generate a JWT token to authorize the user to access your resources.
 
 The demo page will prompt you for a bot key. You can find your bot key in the Kindly dashboard under `Connect > Chat client > Kindly Chat`. The bot key is visible in the `HTML code` snippet. The demo page will also prompt you for a user name. This user name is for demonstration purposes and will be used to generate the JWT token. In a real-world scenario, you would use your own authentication system to generate the JWT token's information.
@@ -53,6 +55,7 @@ Note: Our system do not allow whitelisting a localhost domain. To fully test the
 Resources:
 
 - [Kindly docs: Chat authentication](https://docs.kindly.ai/guides-and-examples/chat-authentication)
+- [Kindly docs: Webhook HMAC signature verification](https://docs.kindly.ai/hmac)
 
 ## Webhooks
 
